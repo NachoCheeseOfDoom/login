@@ -10,8 +10,6 @@ const itemInput = document.getElementById('cartIteam')
 const itemsInList = document.getElementById('listIteamsInDB')
 
 
-
-
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
@@ -37,60 +35,25 @@ onAuthStateChanged(auth, (user) => {
     //ADD SOMETHING TO REALTIME FIREBASE
     addIteamBtn.addEventListener('click', (event) => {
       let itemInputValue = itemInput.value;
-
-      console.log('Added: ', itemInputValue)
-
-      // push(ref(database, `usersItems/ ${uid}`), {
-      //   listIteam: itemInputValue,
-      // })
-
       push(itemsInDB, itemInputValue)
-
-      // const itemsInDB = ref(database, `usersItems/ ${uid}`)
-      // const newIteamInDB = push(itemsInDB)
-      // set(newIteamInDB, {
-      //   listIteam: itemInputValue,
-      // });
     })
 
     //ITEAMS IN REALTIME FIREBASE
-    // const itemsInDB = ref(database, `usersItems/${uid}`)
-    // const itemInDB = ref(database, `usersItems/ ${uid}`)
-
     onValue(itemsInDB, (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         const childKey = childSnapshot.key;
         const childData = childSnapshot.val();
         // ...
-        // console.log('key: ', childKey)
-        console.log('Data: ', childData)
         itemsInList.innerHTML += `${childData}, `;
       });
     });
-
-
-
-
-    //CHILD EVENTS
-    // onChildAdded(itemsInDB, (data) => {
-    //   console.log(data.val())
-    //   itemsInList.innerHTML += `${data.val()}, `;
-    // })
-    // onChildChanged(itemsInDB, (data) => {
-    //   console.log(data.val())
-    //   itemsInList.innerHTML += `${data.val()}, `;
-    // })
-    // onChildRemoved(itemsInDB, (data) => {
-    //   console.log(data.val())
-    //   itemsInList.innerHTML += `${data.val()}, `;
-    // })
-
 
 
     // ...
   } else {
     // User is signed out
     console.log('No user loged in')
+    window.location.href = '/index.html';
     // ...
   }
 });

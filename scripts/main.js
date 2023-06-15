@@ -43,11 +43,11 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
     const uid = user.uid;
-
+    // Allow access to the protected page or perform necessary actions
     // ...
   } else {
     // User is signed out
     console.log('No user loged in')
-    // ...
   }
 });
+
