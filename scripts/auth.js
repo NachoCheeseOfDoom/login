@@ -10,12 +10,11 @@ const userEmail = document.getElementById('typeEmailX-2');
 const userPassword = document.getElementById('typePasswordX-2');
 const userName = document.getElementById('typeUser-2');
 
-
+//SIGNUP FUNCTION
 signUPBtn.addEventListener('click', (event) => {
   const userEmailValue = userEmail.value;
   const userPasswordValue = userPassword.value;
   const userNameValue = userName.value;
-
 
   createUserWithEmailAndPassword(auth, userEmailValue, userPasswordValue)
     .then(cred => {
@@ -29,9 +28,14 @@ signUPBtn.addEventListener('click', (event) => {
         name: userNameValue,
         date: dateAndTime,
       })
-      alert('user loged in')
 
-    })
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      alert(errorCode)
+      // ..
+    });
 
 })
 

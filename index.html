@@ -29,16 +29,18 @@
             <div class="card-body p-5 text-center">
               <h3 class="mb-5">Sign in</h3>
               <div class=" mb-4">
-                <input type="text" id="typeUser-2" placeholder="User Name" class="form-control form-control-lg" />
+                <input type="text" id="typeUser-2" placeholder="User Name" class="form-control form-control-lg"
+                  required />
                 <!-- <label class="form-label" for="typeUser-2">User</label> -->
               </div>
               <div class=" mb-4">
-                <input type="email" id="typeEmailX-2" placeholder="Email" class="form-control form-control-lg" />
+                <input type="email" id="typeEmailX-2" placeholder="Email" class="form-control form-control-lg"
+                  required />
                 <!-- <label class="form-label" for="typeEmailX-2">Email</label> -->
               </div>
               <div class=" mb-4">
-                <input type="password" id="typePasswordX-2" placeholder="Password"
-                  class="form-control form-control-lg" />
+                <input type="password" id="typePasswordX-2" placeholder="Password" class="form-control form-control-lg"
+                  required />
                 <!-- <label class="form-label" for="typePasswordX-2">Password</label> -->
               </div>
               <button id="loginBtn" class="btn btn-primary btn-lg btn-block " type="submit">Login</button>
@@ -48,11 +50,6 @@
               <button id="signUpBtn" class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"> Sign
                 up</button>
 
-              <hr class="my-4">
-
-              <button id="logoutBtn" class="btn btn-lg btn-block btn-primary" style="background-color: #b7b7b7;">
-                logout</button>
-              <P class="mt-4" id="welcomeText"></P>
             </div>
           </div>
         </div>
@@ -60,11 +57,9 @@
     </div>
   </section>
 
-  <script src="./scripts/simpleFunction.js"></script>
   <script src="./config/firebase-config.js" type="module"></script>
   <script src="./scripts/main.js" type="module"></script>
   <script src="./scripts/auth.js" type="module"></script>
-  <!-- <script src="./scripts/userLogedin.js" type="module"></script> -->
 </body>
 
 </html>

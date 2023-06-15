@@ -1,18 +1,28 @@
 import { auth, database } from '../config/firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-import { onValue, ref } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+import { onValue, ref, update, push } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
 
 //DOM ELEMENTS
 const userName = document.getElementById('userName')
+const addIteamBtn = document.getElementById('addIteam')
+const itemInput = document.getElementById('cartIteam')
+const itemsInList = document.getElementById('listIteamsInDB')
+
 
 
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
+    // User is signed in
     const uid = user.uid;
 
+    //REALTIME FIREBASE
     const userInDB = ref(database, `users/ ${uid}`)
+    const itemsInDB = ref(database, `usersItems/ ${uid}`)
+
+
+    //READ USERS NAME
     onValue(userInDB, (snapshot) => {
       const data = snapshot.val();
       if (snapshot.exists()) {
@@ -23,6 +33,59 @@ onAuthStateChanged(auth, (user) => {
         return
       }
     });
+
+    //ADD SOMETHING TO REALTIME FIREBASE
+    addIteamBtn.addEventListener('click', (event) => {
+      let itemInputValue = itemInput.value;
+
+      console.log('Added: ', itemInputValue)
+
+      // push(ref(database, `usersItems/ ${uid}`), {
+      //   listIteam: itemInputValue,
+      // })
+
+      push(itemsInDB, itemInputValue)
+
+      // const itemsInDB = ref(database, `usersItems/ ${uid}`)
+      // const newIteamInDB = push(itemsInDB)
+      // set(newIteamInDB, {
+      //   listIteam: itemInputValue,
+      // });
+    })
+
+    //ITEAMS IN REALTIME FIREBASE
+    // const itemsInDB = ref(database, `usersItems/${uid}`)
+    // const itemInDB = ref(database, `usersItems/ ${uid}`)
+
+    onValue(itemsInDB, (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        const childKey = childSnapshot.key;
+        const childData = childSnapshot.val();
+        // ...
+        // console.log('key: ', childKey)
+        console.log('Data: ', childData)
+        itemsInList.innerHTML += `${childData}, `;
+      });
+    });
+
+
+
+
+    //CHILD EVENTS
+    // onChildAdded(itemsInDB, (data) => {
+    //   console.log(data.val())
+    //   itemsInList.innerHTML += `${data.val()}, `;
+    // })
+    // onChildChanged(itemsInDB, (data) => {
+    //   console.log(data.val())
+    //   itemsInList.innerHTML += `${data.val()}, `;
+    // })
+    // onChildRemoved(itemsInDB, (data) => {
+    //   console.log(data.val())
+    //   itemsInList.innerHTML += `${data.val()}, `;
+    // })
+
+
 
     // ...
   } else {

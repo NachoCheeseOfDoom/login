@@ -1,7 +1,7 @@
 
 //FIREBASE FUNCTIONS
 import { auth } from "../config/firebase-config.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
 //LOGIN
 const loginBtnEl = document.getElementById('loginBtn');
@@ -17,7 +17,7 @@ function cleanFeilds() {
   // userName.value = '',
 }
 
-
+//LOGIN FUNCTION
 loginBtnEl.addEventListener('click', (event) => {
   const userEmailValue = userEmail.value;
   const userPasswordValue = userPassword.value;
@@ -25,11 +25,10 @@ loginBtnEl.addEventListener('click', (event) => {
 
   signInWithEmailAndPassword(auth, userEmailValue, userPasswordValue)
     .then((userCredential) => {
-      // Signed in 
       const user = userCredential.user;
-      console.log(`${user.email} loged in`)
+      // Signed in 
+      cleanFeilds()
       window.location.href = '/mainPage.html';
-
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -40,3 +39,15 @@ loginBtnEl.addEventListener('click', (event) => {
     });
 })
 
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in
+    const uid = user.uid;
+
+    // ...
+  } else {
+    // User is signed out
+    console.log('No user loged in')
+    // ...
+  }
+});
