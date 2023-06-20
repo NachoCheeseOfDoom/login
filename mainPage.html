@@ -22,7 +22,7 @@
 
 <body>
 
-  <section class="vh-100" style="background-color: #508bfc;">
+  <section class="vh-100" >
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -46,6 +46,9 @@
               <button id="logoutBtn" class="btn btn-lg btn-block btn-primary"
                 style="background-color: #b7b7b7;">logout</button>
 
+              <input type="checkbox" id="isAdminCheckbox">
+              <button id="updateAdminBtn">Update Admin</button>
+
               <p id="listIteamsInDB"></p>
             </div>
           </div>
@@ -58,6 +61,8 @@
 
   <script src="./scripts/logedin.js" type="module"></script>
   <script src="./scripts/logout.js" type="module"></script>
+  <script src="./config/firebase-config.js" type="module"></script>
+
 </body>
 
 </html>
